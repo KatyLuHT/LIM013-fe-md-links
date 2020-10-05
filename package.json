@@ -1,0 +1,30 @@
+{
+  "name": "lim013-fe-md-links",
+  "version": "1.0.0",
+  "description": "mi package.json",
+  "main": "index.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1"
+  },
+  "devDependencies": {
+    "eslint": "^7.10.0",
+    "jest": "^26.4.2"
+  },
+  "scripts": {
+    "test": "jest"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/KatyLuHT/LIM013-fe-md-links.git"
+  },
+  "author": "Katy Huamani Tito",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/KatyLuHT/LIM013-fe-md-links/issues"
+  },
+  "homepage": "https://github.com/KatyLuHT/LIM013-fe-md-links#readme"
+}
