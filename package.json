@@ -6,16 +6,17 @@
   "directories": {
     "test": "test"
   },
-  "dependencies": {
-    "eslint-config-airbnb-base": "^14.2.0",
-    "eslint-plugin-import": "^2.22.1"
-  },
+  "dependencies": {},
   "devDependencies": {
     "eslint": "^7.10.0",
+    "eslint-config-airbnb-base": "^14.2.0",
+    "eslint-plugin-import": "^2.22.1",
     "jest": "^26.4.2"
   },
   "scripts": {
-    "test": "jest"
+    "eslint": "eslint --ext .js src/ test/",
+    "test": "jest --verbose --coverage",
+    "start": "serve src/"
   },
   "repository": {
     "type": "git",

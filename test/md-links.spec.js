@@ -1,6 +1,5 @@
 // const mdLinks = require('../');
 
-
 // describe('mdLinks', () => {
 
 //   it('should...', () => {
@@ -9,16 +8,14 @@
 
 // });
 
-
-
 // const path = require ('path');
 const {
-    IsAbsolute,
+  IsAbsolute,
 } = require('../src/index.js');
 
 describe('Testing to find out if IsAbsolute is a function', () => {
-    it('should be a function', () => {
-        expect(IsAbsolute('path válido')).toBe(true);
-        expect(IsAbsolute('path inválido')).toBe(false);
-    });
+  it('should be a function', () => {
+    expect(IsAbsolute('C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\Prueba')).toBe(true);
+    expect(IsAbsolute('../Prueba')).toBe(false);
+  });
 });
