@@ -1,0 +1,1 @@
+const { IsAbsolute } = require('./index');
