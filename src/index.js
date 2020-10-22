@@ -3,20 +3,18 @@ const fs = require('fs'); // fs sistema de modulo(archivo)
 const marked = require('marked');
 const index = require ('./index.js');
 const fetch = require('node-fetch');
-const { isAbsolute } = require('path');
+const { isAbsolute, resolve } = require('path');
+const { rejects } = require('assert');
 
 
 //Funcio que verifica si existe la route
-const existsPath = (route) => (fs.existsSync(route));
+const existsRoute = (route) => (fs.existsSync(route));
 
 //funcion que transforma una route relativa absoluta
 const Isabsolute =(route) => (path.isAbsolute(route));
 
 //funcion que verifica si es archivo
 const IsFile = ((route) => fs.statSync(route).isFile());
-
-// console.log('hola katy');
-// console.log(IsFile('C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\src\\Prueba2\\archivo2.md'));
 
 // const IsDirectory= (route) => fs.readdirSync(route).isDirectory();
 
@@ -26,23 +24,6 @@ const IsMd = (route) => (path.extname(route));
 // funcion que lee directorio
 const readDirectorio = (ruta)=>fs.readdirSync(ruta);
 
-
-
-//-------------------------------------------Funcion que lee directorio--------------------------------------------------------------//
-
-const getArrayOfFilesAndDirectories = (route) => {
-  return readDirectorio(route).map(element =>//se crea una nueva matriz con los elementos encontrados
-    path.join(route, element),); // unimos los elementos en un array y lo separamos por ","
-  };
-
-//console.log(getArrayOfFilesAndDirectories('C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\src\\Prueba2')) ruta
-
-/* retorna [
-  'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\src\\Prueba2\\archivo.md', //Ruta prueba2  //elemto archivo.md
-  'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\src\\Prueba2\\archivo2.md',
-  'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\src\\Prueba2\\nuevaCarpeta'
-]
-*/
 
 //--------------------------------------------FUNCIÓN para convertir route relativa a absoluta-----------------------------------//
 const convertAbsolute = ((route) => {
@@ -55,23 +36,28 @@ const convertAbsolute = ((route) => {
 
 // console.log(convertAbsolute('Prueba2'));
 
-// const traerarcchivosmd = (ruta)=>{
-//   let arraymd =[]
-//   const path = convertAbsolute(ruta);
-//   if(IsFile(ruta)){
-//     if(Ismd(path)==='.md');{
-//     arraymd.push(arraymd);
-//     }
-//   }
 
+//-------------------------------------------Funcion que lee directorio--------------------------------------------------------------//
 
+const ArrayFilesandDirectories = (route) => {
+  return readDirectorio(route).map(element =>//se crea una nueva matriz con los elementos encontrados
+    path.join(route, element),); // unimos los elementos en un array y lo separamos por ","
+  };
 
-// }
+// console.log(ArrayFilesandDirectories('C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\src\\Prueba2')) // ruta
+
+/* retorna [
+  'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\src\\Prueba2\\archivo.md', //Ruta prueba2  //elemto archivo.md
+  'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\src\\Prueba2\\archivo2.md',
+  'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\src\\Prueba2\\nuevaCarpeta'
+]
+*/
+
 //------------------------------------------------FUNCIÓN que trae archivos .md--------------------------------------------------------//
 
-// se pasa ruta console.log(searchPathFiles('Prueba2'));
+// se pasa ruta console.log(searchRoutemd('Prueba2'));
 
-const searchPathFiles = (route) => {
+const searchRoutemd = (route) => { //searchRoutemd buscar archivos de ruta
   let arrayMdFiles = []; // array almacenara archivos con extención .md
   const filePath = convertAbsolute(route); // asignamos ruta absoluta a filepath
   if (IsFile(filePath)) { // pregunta si es un archivo
@@ -79,12 +65,12 @@ const searchPathFiles = (route) => {
       arrayMdFiles.push(filePath);   //arrayfiles contendra elemento con .md y con push agregamos el elemento al array
     }
   } else {
-    getArrayOfFilesAndDirectories(route).forEach((element) => {// recorido por cada elemento de directorio
+    ArrayFilesandDirectories(route).forEach((element) => {// recorido por cada elemento de directorio
       const filesOfNewRoute = element;
       //obtener archivos MD en nueva ruta
-      const getMDFilesInNewRoute = searchPathFiles(filesOfNewRoute);
+      const getMDFilesInNewRoute = searchRoutemd(filesOfNewRoute);
       arrayMdFiles = arrayMdFiles.concat(getMDFilesInNewRoute); //concat() se usa para unir dos o más arrays arrayMdFiles, getMDFilesInNewRoute
-    });
+    });// recursion
   }
   return arrayMdFiles;
 };
@@ -107,62 +93,125 @@ const readFilePath = (route) => fs.readFileSync(route).toString();
 //-----------------------------------------Funcion que nos permite extraer links de archivos--------------------------------------------
 
 // se envia console.log(extraerLinks('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2\\archivo2.md'));
-/*
+/* devuelve array de objetos
+  [
+  {
+    href: 'https://www.geeksforgeeks.org/node-js-fs-statsync-method/',
+    text: 'metodo',
+    file: 'C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2\\archivo.md'
+  },
   {
     href: 'https://developer.mozilla.org/es/docs/Glossary/Callback_function',
     text: 'MDN',
     file: 'C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2\\archivo2.md'
   }
+]
 */
 const extraerLinks = (route) => {
       let arrayLinks = [];// aqui se ira agregando links
       const renderer = new marked.Renderer();
-      searchPathFiles(route).forEach((file) => {    //ejecuta acción por cada elemento
-        renderer.link= (href, title, text) => { // renderer salida ouput con tres propiedades
-          const propLink = {
+      searchRoutemd(route).forEach((file) => {    //ejecuta acción por cada elemento
+        renderer.link= (href, title, text) => { // renderer define salida ouput con tres propiedades
+          const linkProperties = {
             href, //url encontrada
             text, //texto que aprece dentro de link
             file //ruta de archivo deonde se encuentra link
           };
-          arrayLinks.push(propLink); //con push se va agregando a arraylinks
+          arrayLinks.push(linkProperties); //con push se va agregando a arraylinks
         };
         marked(readFilePath(file), { renderer });
       });
       return arrayLinks; // devuelve links de carpeta dentro de src
     };
 
-    // console.log(extraerLinks('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2\\archivo2.md'));
+    // console.log(extraerLinks('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2'));
+
+    // new Promise((resolve) =>
+
+//-----------------------------funccion para validar links--------------------------------------
+const Validate = (links)=>{
+  const arrayPromise = links.map((element) => new Promise((resolve) => //creamos nuevo array
+  fetch(elemets.href) //
+    .then((response)=>{ // propiedad de solo lectura status de la interfaz Response contiene el código de estado de la respuesta 
+      element.status = response.status;
+      // if((element.status >= 200) && (response.status < 400)){
+      //     return response.statustext = 'ok';
+
+      element.statusText = res.ok ? 'ok' : 'fail';
+      return element;
+      // console.log('hola validate');
+    // console.log(element.text,res.status,res.statusText);
+      resolve(e);
+      // console.log('desp resolve');
+      })
+    .catch(()=>{
+      // console.log('desp error catch');
+      status = 404;
+      element.statustext = 'fail';
+
+      resolve(e);
+      // return element.statustext = 'fail';
+      // console.log(err);
+
+    })));
+
+  return Promise.all(arrayPromise).then(response => response); //devuelve una promesa que termina correctamente
+  };
+
+// console.log(Validate('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2'));
+
+//--------------------------------------------------------------------------------------------------------------------------
+ 
+  const validateOptions = (arrAllLinks) => {
+    // const arrAllLinks = extraerLinks(ruta);
+    // console.log(arrAllLinks);
+    const statusLinks = arrAllLinks.map((element) => fetch(element.href)
+   
+      .then((res) => ({
+        href: element.href,
+        text: element.text,
+        path: element.file,
+        status: res.status,
+        statusText: res.statusText,
+        // console.log();
+      })));
+    return Promise.all(statusLinks);
+  };
+
+  // validateOptions('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2').then((res)=>console.log(res));
 
 
 
-// ejemplo
-// function readFilePromise(fileName)
-// {
-//     var promise = new Promise(function(resolve, reject) {
-//         fs.readFile(fileName, function(err, buffer) {
-//             if (err) {
-//                 reject(err);
-//                 return;
-//             }
-//             resolve(buffer);
-//         });
-//     });
 
-//     return promise;
-// }
+  // console.log(Validate('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2'));
+  // console.log(Validate('../Prueba2'));
 
-// var promise = readFilePromise("file.txt");
-// promise.then(
-//     function(buffer) {
-//         // console.log("FILE CONTENTS", buffer.toString());
-//     },
-//     function(err) {
-//         // console.log("FILE READ ERROR", err);
-//     }
-// );
-// console.log(addValidate('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2\\archivo2.md'));
+// --validate
+// metodo 200 OK
+// MDN 200 OK
+
+
+// console.log(validate('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2\\archivo.md'));
+
+
+// Una promesa puede presentar los siguientes estados:
+
+// fulfilled - La acción relacionada a la promesa se llevó a cabo con éxito
+// rejected - La acción relacionada a la promesa falló
+// pending - Aún no se ha determinado si la promesa fue fulfilled o rejected
+// settled - Ya se ha determinado si la promesa fue fulfilled o rejected
+
+// (response.status >= 200 && response.status < 400) ? element.statusText = 'ok' : element.statusText = 'fail';
 
 module.exports = {
-  existsPath,
+  existsRoute,
+  IsFile,
+  IsMd,
+  convertAbsolute,
+  searchRoutemd,
+  readFilePath,
   extraerLinks,
+  // Validate,
+  validateOptions
+
 };
