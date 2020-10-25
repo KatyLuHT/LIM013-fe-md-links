@@ -55,7 +55,8 @@ const ArrayFilesandDirectories = (route) => {
 
 //------------------------------------------------FUNCIÓN que trae archivos .md--------------------------------------------------------//
 
-// se pasa ruta console.log(searchRoutemd('Prueba2'));
+// se pasa ruta 
+
 
 const searchRoutemd = (route) => { //searchRoutemd buscar archivos de ruta
   let arrayMdFiles = []; // array almacenara archivos con extención .md
@@ -75,6 +76,7 @@ const searchRoutemd = (route) => { //searchRoutemd buscar archivos de ruta
   return arrayMdFiles;
 };
 
+console.log(searchRoutemd('C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba'));
 
 // se envia ruta de directorio
 
@@ -124,41 +126,10 @@ const extraerLinks = (route) => {
       return arrayLinks; // devuelve links de carpeta dentro de src
     };
 
-    // console.log(extraerLinks('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2'));
+    // console.log(extraerLinks('C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba\\Prueba1.md'));
 
     // new Promise((resolve) =>
 
-//-----------------------------funccion para validar links--------------------------------------
-const Validate = (links)=>{
-  const arrayPromise = links.map((element) => new Promise((resolve) => //creamos nuevo array
-  fetch(elemets.href) //
-    .then((response)=>{ // propiedad de solo lectura status de la interfaz Response contiene el código de estado de la respuesta 
-      element.status = response.status;
-      // if((element.status >= 200) && (response.status < 400)){
-      //     return response.statustext = 'ok';
-
-      element.statusText = res.ok ? 'ok' : 'fail';
-      return element;
-      // console.log('hola validate');
-    // console.log(element.text,res.status,res.statusText);
-      resolve(e);
-      // console.log('desp resolve');
-      })
-    .catch(()=>{
-      // console.log('desp error catch');
-      status = 404;
-      element.statustext = 'fail';
-
-      resolve(e);
-      // return element.statustext = 'fail';
-      // console.log(err);
-
-    })));
-
-  return Promise.all(arrayPromise).then(response => response); //devuelve una promesa que termina correctamente
-  };
-
-// console.log(Validate('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2'));
 
 //--------------------------------------------------------------------------------------------------------------------------
  
@@ -201,7 +172,6 @@ const Validate = (links)=>{
 // pending - Aún no se ha determinado si la promesa fue fulfilled o rejected
 // settled - Ya se ha determinado si la promesa fue fulfilled o rejected
 
-// (response.status >= 200 && response.status < 400) ? element.statusText = 'ok' : element.statusText = 'fail';
 
 module.exports = {
   existsRoute,
@@ -211,7 +181,6 @@ module.exports = {
   searchRoutemd,
   readFilePath,
   extraerLinks,
-  // Validate,
   validateOptions
 
 };
