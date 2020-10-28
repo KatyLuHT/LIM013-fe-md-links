@@ -8,7 +8,7 @@ const {
   extraerLinks,
 } = require('../src/index.js');
 
-const { mdlinks } = require('../src/mdlink');
+const mdlinks = require('../src/mdlinks');
 
 
 describe('existsRoute', () => {
@@ -92,7 +92,7 @@ describe('test para extraerLinks', () => {
   });
 });
 
-// // mdlinks;
+//-----------------------------------------------------MDLINK---------------------------------------------------//
 describe('test para mdlinks', () => {
   test('deberia devolver un array de objetos con las 3 propiedades para validate:false', () => {
     const ouputMdlink = [

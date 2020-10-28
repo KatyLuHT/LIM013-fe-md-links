@@ -4,7 +4,7 @@
   "description": "mi package.json",
   "main": "src/index.js",
   "bin": {
-    "mdlink": "src/cli.js"
+    "md-links": "src/Cli.js"
   },
   "directories": {
     "test": "test"
