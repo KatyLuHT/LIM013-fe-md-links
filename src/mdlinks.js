@@ -8,7 +8,7 @@ const mdlinks = (stringpath, options={}) => {
   }
   const links = funciones.extraerLinks(stringpath);
   return new Promise(
-    (resolve, reject) => {
+    (resolve) => {
       if (options.validate === true) {
         resolve(validateOptions(links))
       } else if (options === undefined || options.validate === false) {
@@ -18,7 +18,7 @@ const mdlinks = (stringpath, options={}) => {
   )
 };
 
-// mdlinks('C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba', { validate: true }).then((response) => { console.log(response) });
+//mdlinks('C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba', { validate: true }).then((response) => { console.log(response) });
 
 module.exports = mdlinks;
 
