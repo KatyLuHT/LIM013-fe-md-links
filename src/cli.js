@@ -23,7 +23,6 @@ if (argumento.length === 2) {
 if (argumento.length === 3) {
   if ((argumento[1] === '--validate' && argumento[2] === '--stats') || (argumento[1] === '--stats' && argumento[2] === '--validate')) {
     mdlinks(argumento[0], { validate: true }).then(resp => console.log(colors.bgMagenta(totalUnique(resp) + '\n' + broken(resp))));
-    // uso mdlinks 
   }
   // } else if (argumento[1] == 'false') {
   //   mdlinks(argumento[0], { validate: false }).then(resp => {

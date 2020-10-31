@@ -32,11 +32,11 @@ const convertAbsolute = ((route) => {
   return route;
 });
 
-//-------------------------------------------FUNCIÓNque lee directorio--------------------------------------------------------------//
+//-------------------------------------------FUNCIÓN que lee directorio--------------------------------------------------------------//
 
 const ArrayFilesandDirectories = (route) => {
   return readDirectorio(route).map(element =>//se crea una nueva matriz con los elementos encontrados
-    path.join(route, element)); //une los segmentos de ruta especificados en una ruta, unimos carpeta + archivo.md
+    path.join(route, element)); //une los segmentos de ruta especificados en una ruta
 };
 
 //---------------------------------------------FUNCIÓN que trae archivos .md----------------------------------------------------------//
@@ -51,9 +51,8 @@ const searchRoutemd = (route) => {
   } else {
     ArrayFilesandDirectories(route).forEach((element) => {// recorrido por cada elemento de directorio
       const filesOfNewRoute = element;
-      //obtener archivos MD en nueva ruta
       const getMDFilesInNewRoute = searchRoutemd(filesOfNewRoute);// recursion searchRoutemd se llama a si mismo
-      arrayMdFiles = arrayMdFiles.concat(getMDFilesInNewRoute); //concat() se usa para unir dos o más arrays arrayMdFiles, getMDFilesInNewRoute
+      arrayMdFiles = arrayMdFiles.concat(getMDFilesInNewRoute); 
     });
   }
   return arrayMdFiles;
@@ -124,15 +123,8 @@ const validateOptions = (arrAllLinks) => {
   return Promise.all(statusLinks);
 };
 
-console.log(typeof arrAllLinks);
-validateOptions('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2').then((res)=>console.log(res));
 
-// Una promesa puede presentar los siguientes estados:
-// fulfilled - La acción relacionada a la promesa se llevó a cabo con éxito
-// rejected - La acción relacionada a la promesa falló
-// pending - Aún no se ha determinado si la promesa fue fulfilled o rejected
-// settled - Ya se ha determinado si la promesa fue fulfilled o rejected
-
+// validateOptions('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2').then((res)=>console.log(res));
 
 module.exports = {
   existsRoute,

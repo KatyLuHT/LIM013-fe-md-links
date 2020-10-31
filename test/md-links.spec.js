@@ -30,7 +30,7 @@ describe('Testing to find out if convertAbsolute is a function', () => {
   it('should be a function', () => {
     expect(typeof convertAbsolute).toBe('function');
   });
-    it('debería convertir a ruta absoluta', () => {
+    it('should convert an absolute path', () => {
       expect(convertAbsolute('../Prueba2/archivo.md')).toBe('C:\\Users\\KELLY-PC\\Documents\\md-links\\Prueba2\\archivo.md');
     });
   });
@@ -77,8 +77,8 @@ describe('Testing to find out if searchRoutemd is a function', () => {
 });
 
 
-describe('test para extraerLinks', () => {
-  test('deberia retornar un array de objetos con las 3 propiedades', () => {
+describe('test to extract Links', () => {
+  test('it should return an array of objects with the 3 properties', () => {
 
     const ouput = [
    {
@@ -93,8 +93,8 @@ describe('test para extraerLinks', () => {
 });
 
 //-----------------------------------------------------MDLINK---------------------------------------------------//
-describe('test para mdlinks', () => {
-  test('deberia devolver un array de objetos con las 3 propiedades para validate:false', () => {
+describe('test for mdlinks', () => {
+  test('It should return an array of objects with the 3 properties for validate: false', () => {
     const ouputMdlink = [
        {
     href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/First_steps/Qu%C3%A9_es_JavaScript',
@@ -111,24 +111,24 @@ describe('test para mdlinks', () => {
   });
 });
 
-describe('mdlinks ', () => {
-  test('deberia retornar un array de objetos con 5 propiedades para validate:true', () => {
-    const ouputTrue = [
-      {
-    href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/First_steps/Qu%C3%A9_es_JavaScript',
-    text: 'Definicion de javascript',
-    path: 'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba\\prueba 2.md',
-    status: 200,
-    statusText: 'OK'
-  },
-  {
-    href: 'https://nodejs.org/es/about/',
-    text: 'Definicón de Node js',
-    path: 'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba\\Prueba1.md',
-    status: 200,
-    statusText: 'OK'
-  }
-    ];
-    return expect(mdlinks('./test/Prueba/', { validate: true })).resolves.toEqual(ouputTrue);
-  });
-});
+// describe('mdlinks ', () => {
+//   test('It should return an array de objects whith the 5 properties for validate:true', () => {
+//     const ouputTrue = [
+//       {
+//     href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/First_steps/Qu%C3%A9_es_JavaScript',
+//     text: 'Definicion de javascript',
+//     path: 'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba\\prueba 2.md',
+//     status: 200,
+//     statusText: 'OK'
+//   },
+  // {
+  //   href: 'https://nodejs.org/es/about/',
+  //   text: 'Definicón de Node js',
+  //   path: 'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba\\Prueba1.md',
+  //   status: 200,
+  //   statusText: 'OK'
+  // }
+  //   ];
+  //   return expect(mdlinks('./test/Prueba/', { validate: true })).resolves.toEqual(ouputTrue);
+  // });
+// });

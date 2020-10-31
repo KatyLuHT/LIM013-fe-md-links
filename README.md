@@ -30,7 +30,7 @@ Instalar la libreria via npm install --global KatyLuHT/LIM013-fe-md-links
 
 ![Diagrama de flujo api](./src/imagenes/flujoApi.png)
 
-![Diagrama de flujo cli](./src/imagenes/flujo2.jpg)
+![Diagrama de flujo cli](./src/imagenes/cliMdlink.png)
 
 
 
