@@ -18,7 +18,7 @@ const mdlinks = (stringpath, options={}) => {
   )
 };
 
-//mdlinks('C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba', { validate: true }).then((response) => { console.log(response) });
+//mdlinks('C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba', { validate: false }).then((response) => { console.log(response) });
 
 module.exports = mdlinks;
 

@@ -86,20 +86,19 @@ const extraerLinks = (route) => {
   return arrayLinks;
 };
 
-//----------------------------------------------FUNCIÓN que retornara las 5 propiedades----------------------------------------------------------------------------
+//----------------------------------------------FUNCIÓN que retorna 5 propiedades----------------------------------------------------------------------------
 
 const validateOptions = (arrAllLinks) => {
-  const statusLinks = arrAllLinks.map((element) => 
+  const statusLinks = arrAllLinks.map((element) =>
   fetch(element.href)
     .then((res) => { //la interfaz Response contiene el código de estado de la respuesta (ejm., 200 para un éxito).
       if((res.status >= 200) && (res.status <= 399)){
-      //  return res.status 'ok'
         return {
           href: element.href,
           text: (element.text.substring(0, 50)),
           path: element.file,
           status: res.status,
-          statusText: 'ok'
+          statusText: 'Ok'
         }
       } else if((res.status < 200 )|| (res.status >=400)){
       	return {
@@ -119,16 +118,14 @@ const validateOptions = (arrAllLinks) => {
         statusText: 'fail'
       }
 
-      // res.status = 400;
-      // // console.log('catch((res)',res);
-      // res.statustext = 'fail';
     })
   
-    );// if(element.status < 200 || element.status >=400  ){ return(statustext = 'fail');}
+    );
   return Promise.all(statusLinks);
 };
 
-// validateOptions('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2').then((res)=>console.log(res));
+console.log(typeof arrAllLinks);
+validateOptions('C:\\Users\\KELLY-PC\\Desktop\\katy-LIM013-fe-md-links\\src\\Prueba2').then((res)=>console.log(res));
 
 // Una promesa puede presentar los siguientes estados:
 // fulfilled - La acción relacionada a la promesa se llevó a cabo con éxito
