@@ -1,11 +1,7 @@
 const path = require('path');
 const fs = require('fs');
 const marked = require('marked');
-const index = require('./index.js');
 const fetch = require('node-fetch');
-const { isAbsolute } = require('path');
-const { rejects } = require('assert');
-
 
 //Función que verifica si existe la route
 const existsRoute = (route) => (fs.existsSync(route));
@@ -97,7 +93,7 @@ const validateOptions = (arrAllLinks) => {
           text: (element.text.substring(0, 50)),
           path: element.file,
           status: res.status,
-          statusText: 'Ok'
+          statusText: 'OK'
         }
       } else if((res.status < 200 )|| (res.status >=400)){
       	return {
@@ -108,7 +104,7 @@ const validateOptions = (arrAllLinks) => {
           statusText: 'fail'
         }
       }})
-    .catch((res) => {
+    .catch(() => {
       return {
         href: element.href,
         text: (element.text.substring(0, 50)),
@@ -116,9 +112,7 @@ const validateOptions = (arrAllLinks) => {
         status:404,
         statusText: 'fail'
       }
-
     })
-  
     );
   return Promise.all(statusLinks);
 };

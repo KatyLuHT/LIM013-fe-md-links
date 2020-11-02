@@ -11,7 +11,7 @@ const mdlinks = (stringpath, options={}) => {
     (resolve) => {
       if (options.validate === true) {
         resolve(validateOptions(links))
-      } else if (options === undefined || options.validate === false) {
+      } else if (options.validate === false) {
         resolve(links);
       }
     }

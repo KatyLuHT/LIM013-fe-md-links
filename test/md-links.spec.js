@@ -111,24 +111,24 @@ describe('test for mdlinks', () => {
   });
 });
 
-// describe('mdlinks ', () => {
-//   test('It should return an array de objects whith the 5 properties for validate:true', () => {
-//     const ouputTrue = [
-//       {
-//     href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/First_steps/Qu%C3%A9_es_JavaScript',
-//     text: 'Definicion de javascript',
-//     path: 'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba\\prueba 2.md',
-//     status: 200,
-//     statusText: 'OK'
-//   },
-  // {
-  //   href: 'https://nodejs.org/es/about/',
-  //   text: 'Definicón de Node js',
-  //   path: 'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba\\Prueba1.md',
-  //   status: 200,
-  //   statusText: 'OK'
-  // }
-  //   ];
-  //   return expect(mdlinks('./test/Prueba/', { validate: true })).resolves.toEqual(ouputTrue);
-  // });
-// });
+describe('mdlinks ', () => {
+  test('It should return an array de objects whith the 5 properties for validate:true', () => {
+    const ouputTrue = [
+      {
+    href: 'https://developer.mozilla.org/es/docs/Learn/JavaScript/First_steps/Qu%C3%A9_es_JavaScript',
+    text: 'Definicion de javascript',
+    path: 'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba\\prueba 2.md',
+    status: 200,
+    statusText: 'OK'
+  },
+  {
+    href: 'https://nodejs.org/es/about/',
+    text: 'Definicón de Node js',
+    path: 'C:\\Users\\KELLY-PC\\Documents\\md-links\\LIM013-fe-md-links\\test\\Prueba\\Prueba1.md',
+    status: 200,
+    statusText: 'OK'
+  }
+    ];
+    return expect(mdlinks('./test/Prueba/', { validate: true })).resolves.toEqual(ouputTrue);
+  });
+});

@@ -9,7 +9,6 @@ const totalUnique = (links) => {
 
 // -----------------------------Función que verifica si hay algun link 'fail'----------------------------------------//
 const broken = (links) => {
-  // const brokenLinks = links.filter((element) => element.statusText === 'fail');
   const brokenLinks = Array.from(links).filter((element) => element.status >= 400);
   const stats =`Broken: ${brokenLinks.length}`;
   return stats;
